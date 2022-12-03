@@ -78,7 +78,7 @@ You can download the PDF and Epub version of this repository from the latest run
 |52 | [What are the advantages of React?](#what-are-the-advantages-of-react) |
 |53 | [What are the limitations of React?](#what-are-the-limitations-of-react) |
 |54 | [What are error boundaries in React v16](#what-are-error-boundaries-in-react-v16) |
-|55 | [How error boundaries handled in React v15?](#how-error-boundaries-handled-in-react-v15) |
+|55 | [How are error boundaries handled in React v15?](#how-are-error-boundaries-handled-in-react-v15) |
 |56 | [What are the recommended ways for static type checking?](#what-are-the-recommended-ways-for-static-type-checking) |
 |57 | [What is the use of react-dom package?](#what-is-the-use-of-react-dom-package) |
 |58 | [What is the purpose of render method of react-dom?](#what-is-the-purpose-of-render-method-of-react-dom) |
@@ -356,12 +356,13 @@ You can download the PDF and Epub version of this repository from the latest run
 |324| [What are the benefits of using typescript with reactjs?](#what-are-the-benefits-of-using-typescript-with-reactjs)|
 |325| [How do you make sure that user remains authenticated on page refresh while using Context API State Management?](#how-do-you-make-sure-that-user-remains-authenticated-on-page-refresh-while-using-context-api-state-management)|
 |326| [What are the benefits of new JSX transform?](#what-are-the-benefits-of-new-jsx-transform)|
-|327| [How does new JSX transform different from old transform?](#how-does-new-jsx-transform-different-from-old-transform)|
+|327| [How is the new JSX transform different from old transform?](#how-is-the-new-jsx-transform-different-from-old-transform)|
 |328| [How do you get redux scaffolding using create-react-app?](#how-do-you-get-redux-scaffolding-using-create-react-app)|
 |329| [What are React Server components?](#what-are-react-server-components)|
 |330| [What is prop drilling?](#what-is-prop-drilling)|
 |331| [What is state mutation and how to prevent it?](#what-is-state-mutation-and-how-to-prevent-it)|
 |332| [What is the difference between useState and useRef hook?](#what-is-the-difference-between-usestate-and-useref-hook)|
+|333| [What are the Differences Between Functional and Class Component in React](#what-are-the-differences-between-functional-and-class-component-in-react)
 
 ## Core React
 
@@ -393,6 +394,19 @@ You can download the PDF and Epub version of this repository from the latest run
     In the example below text inside `<h1>` tag is returned as JavaScript function to the render function.
 
     ```jsx harmony
+    export default function App() {
+      return (
+        <div>
+          <h1>{'Welcome to React world!'}</h1>
+        </div>
+      );
+    }
+    ```
+
+    <details><summary><b>See Class</b></summary>
+    <p>
+
+    ```jsx harmony
     class App extends React.Component {
       render() {
         return(
@@ -403,7 +417,10 @@ You can download the PDF and Epub version of this repository from the latest run
       }
     }
     ```
+    </p>
+    </details>
 
+    **Note:** JSX is stricter than HTML
 
    **[⬆ Back to Top](#table-of-contents)**
     
@@ -556,6 +573,62 @@ You can download the PDF and Epub version of this repository from the latest run
     ```
     props.reactProp
     ```
+    
+
+    **Example: Props in Class Based Component**
+
+    ```jsx
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+
+    class ChildComponent extends React.Component {
+        render() {
+            return (
+                <div>
+                    <p>{this.props.name}</p>
+                    <p>{this.props.age}</p>
+                </div>
+            )
+        }
+    }
+
+    class ParentComponent extends React.Component {
+        render() {
+            return (
+                <div>
+                    <ChildComponent name='John' age='30' />
+                    <ChildComponent name='Mary' age='25' />
+                </div>
+            )
+        }
+    }
+    ```
+
+    **Example: Props in Functional Component**
+
+    ```jsx
+    import React from 'react'
+    import ReactDOM from 'react-dom'
+
+    const ChildComponent = (props) => {
+        return (
+            <div>
+                <p>{props.name}</p>
+                <p>{props.age}</p>
+            </div>
+        )
+    }
+
+    const ParentComponent = () => {
+        return (
+            <div>
+                <ChildComponent name='John' age='30' />
+                <ChildComponent name='Mary' age='25' />
+            </div>
+        )
+    }
+    ```
+
 
 
    **[⬆ Back to Top](#table-of-contents)**
@@ -1373,7 +1446,7 @@ You can download the PDF and Epub version of this repository from the latest run
     
 49. ### What are stateless components?
 
-    If the behaviour is independent of its state then it can be a stateless component. You can use either a function or a class for creating stateless components. But unless you need to use a lifecycle hook in your components, you should go for function components. There are a lot of benefits if you decide to use function components here; they are easy to write, understand, and test, a little faster, and you can avoid the `this` keyword altogether.
+    If the behaviour of a component is independent of its state then it can be a stateless component. You can use either a function or a class for creating stateless components. But unless you need to use a lifecycle hook in your components, you should go for function components. There are a lot of benefits if you decide to use function components here; they are easy to write, understand, and test, a little faster, and you can avoid the `this` keyword altogether.
 
 
    **[⬆ Back to Top](#table-of-contents)**
@@ -1549,7 +1622,7 @@ You can download the PDF and Epub version of this repository from the latest run
 
    **[⬆ Back to Top](#table-of-contents)**
     
-55. ### How error boundaries handled in React v15?
+55. ### How are error boundaries handled in React v15?
 
     React v15 provided very basic support for *error boundaries* using `unstable_handleError` method. It has been renamed to `componentDidCatch` in React v16.
 
@@ -1581,7 +1654,7 @@ You can download the PDF and Epub version of this repository from the latest run
     This method is used to render a React element into the DOM in the supplied container and return a reference to the component. If the React element was previously rendered into container, it will perform an update on it and only mutate the DOM as necessary to reflect the latest changes.
 
     ```
-    ReactDOM.render(element, container[, callback])
+    ReactDOM.render(element, container, [callback])
     ```
 
     If the optional callback is provided, it will be executed after the component is rendered or updated.
@@ -2238,7 +2311,7 @@ You can download the PDF and Epub version of this repository from the latest run
     While when imported in another file it should start with capital letter:
 
     ```jsx harmony
-    import MyComponent from './MyComponent'
+    import MyComponent from './myComponent'
     ```
 
 
@@ -3339,7 +3412,7 @@ You can download the PDF and Epub version of this repository from the latest run
     
 140. ### What is React Intl?
 
-     The *React Intl* library makes internalization in React straightforward, with off-the-shelf components and an API that can handle everything from formatting strings, dates, and numbers, to pluralization. React Intl is part of *FormatJS* which provides bindings to React via its components and API.
+     The *React Intl* library makes internationalization in React straightforward, with off-the-shelf components and an API that can handle everything from formatting strings, dates, and numbers, to pluralization. React Intl is part of *FormatJS* which provides bindings to React via its components and API.
 
 
    **[⬆ Back to Top](#table-of-contents)**
@@ -4948,7 +5021,7 @@ You can download the PDF and Epub version of this repository from the latest run
    **[⬆ Back to Top](#table-of-contents)**
     
 226. ### What are hooks?
-     Hooks is a new feature(React 16.8) that lets you use state and other React features without writing a class.
+     Hooks is a special function (introduced as a new feature in React 16.8) that lets you use state and other React features without writing a class.
 
      Let's see an example of useState hook:
      ```jsx
@@ -4968,6 +5041,7 @@ You can download the PDF and Epub version of this repository from the latest run
        );
      }
      ```
+     **Note:** Hooks can be used inside an existing function component.
 
    **[⬆ Back to Top](#table-of-contents)**
     
@@ -6116,7 +6190,7 @@ You can download the PDF and Epub version of this repository from the latest run
    **[⬆ Back to Top](#table-of-contents)**
     
 287. ### What is diffing algorithm?
-     React needs to use algorithms to find out how to efficiently update the UI to match the most recent tree. The diffing algorithms is generating the minimum number of operations to transform one tree into another. However, the algorithms have a complexity in the order of O(n3) where n is the number of elements in the tree.
+     React needs to use algorithms to find out how to efficiently update the UI to match the most recent tree. The diffing algorithms is generating the minimum number of operations to transform one tree into another. However, the algorithms have a complexity in the order of O(n³) where n is the number of elements in the tree.
 
      In this case, displaying 1000 elements would require in the order of one billion comparisons. This is far too expensive. Instead, React implements a heuristic O(n) algorithm based on two assumptions:
 
@@ -6702,7 +6776,7 @@ ReactDOM.render(
                  
   **[⬆ Back to Top](#table-of-contents)**
 
-327. ### How does new JSX transform different from old transform?
+327. ### How is the new JSX transform different from old transform??
      The new JSX transform doesn’t require React to be in scope. i.e, You don't need to import React package for simple scenarios.
 
      Let's take an example to look at the main differences between the old and the new transform,
@@ -6816,6 +6890,159 @@ ReactDOM.render(
      2. useState allows us to update the state inside components. While useRef allows refrencing DOM elements.
                  
   **[⬆ Back to Top](#table-of-contents)**
+
+  333. ### What are the Differences Between Functional and Class Component
+  ## Class Component syntax
+
+
+ ```
+class Example extends Reacts.Component {
+render(){
+return <h1>This is a class component</h1>}
+}
+
+```
+
+> I guess we all know that **Pascal Case** is the accepted way of naming a component in react`Example`. 
+
+# Functional Component syntax
+Functional component has been improved over the years with some added features like Hooks
+Here is a syntax for functional component
+
+```
+function App(){
+   return <div className="App">
+     <h1>Hello, I'm a Nigerian</h1>
+    </div>
+}
+
+```
+### States in Class Component 
+states holds information or data about a component in react which may change over time.  in class component we can update the state, when a user interacts with it or maybe a server response using the `setState()` method and the initial state is been assigned in the `Constructor( ) `method using the the  ` this.state` object. different data type can be passed in the this.state object, which can be string, boolean, numbers, etc. 
+<strong> A simple example showing how we use the setState() and constructor() <strong>
+
+```
+class Example extends Component {
+  constructor() {
+    super();
+    this.state = {
+      example: "This is a class component",
+    };
+  }
+  changeText() {
+    this.setState({
+      example: "implementing the setState() in class component",
+    });
+  }
+  render() {
+    return (
+      <>
+        <h1>{this.state.example}</h1>
+        <button
+          onClick={() => {
+            this.changeText();
+          }}>
+          Click!!
+        </button>
+      </>
+    );
+  }
+}
+
+```
+## Using Sates in Functional Components
+Initially, we could not use state in functional components because it was only supported in class components. over the years hooks were implemented in functional component. The hooks that enable us to use state in functional component is called <strong>useState</strong>
+ The useState( ) hook returns an array of the current state and a function ( setState) that we can use to update the value of the current state. The array is being destructured so we can can see the variables the array holds that is, the initial state and the updated state lets see an example
+
+ 
+
+```
+function App() {
+  const [country, setCountry] = useState("i'm a Nigerian");
+  const change = () => {
+    setCountry("i am a Canadian");
+  };
+  return (
+    <div className="App">
+      <h1>Hello, {country} </h1>
+      <button onClick={change}>Change</button>
+    </div>
+  );
+}
+```
+
+<h4> Props in Class Component</h4>
+ Props are referred to as "properties".  props are passed into react component just like arguments are passed into functions . Props are being specified as attribute just like your html. for example if the name attribute is "name " we assign a value to name. so basically, props are object that contains an attribute and its corresponding value. Data can be passed from parent component to the children component, but this data is immutable, which means that we cannot modify the props across another  component. here is an example 
+```
+class Introduction extends React.Component {
+  render() {
+    return <h1> Hello, my name is {this.props.name} </h1>;
+  }
+}
+
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Introduction name=" Queen Elizabeth" />
+        <Introduction name=" Margret  Edeh" />
+      </div>
+    );
+  }
+}
+```
+
+## Props in Functional Components
+
+Props in functional components are similar to that of the class components, the difference is the absence of the 'this' keyword. We also destructure in a similar way without the 'this' keyword. they are also immutable in the functional component
+```
+function Food(props) {
+  return <h1>I love {props.fav}</h1>;
+}
+
+function App() {
+  return (
+    <div className="App">
+      <Food fav="Beans" />
+      <Food fav="Yam and Egg sauce"/>
+    </div>
+  );
+}
+``` 
+> As you can see in the example above there wasn't a need for the 'this' keyword.
+
+```
+
+function Food(props) {
+  const { fav } = props;
+  return <h1>I love {fav}</h1>;
+}
+
+function App() {
+  return (
+    <div className="App">
+      <Food fav="Beans" />
+      <Food fav="Yam and Egg sauce" />
+    </div>
+  );
+}
+```
+summary:
+
+*The functional components doesn't require the render method          
+*Class component require the render() method that returns JSX.                                                  
+
+To use states in functional component we use the **useState** hook.          
+To use State in class components we use the constructor method and the setState function.
+                                     
+Functional components use the useEffect hook instead of lifecycle method [useEffect](https://www.w3schools.com/react/react_useeffect.asp )    
+ Class components uses Lifecycle method    **componentWillUnmount** etc. [ Lifecycle methods](https://www.w3schools.com/react/react_lifecycle.asp )
+
+  **[⬆ Back to Top](#table-of-contents)**
+
+
+
+
 
 ## Disclaimer
 
